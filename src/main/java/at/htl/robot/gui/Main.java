@@ -14,8 +14,6 @@ public class Main extends PApplet {
     private float leftMargin = 50;
     private float celllength = 50;
     private float tableLength = celllength * 10;
-    private float directionDisplayDistance = 15;
-    private float repositionMiddle = 3;
     private Robot robot = new Robot();
     private int x = 0;
     private int y = 0;
@@ -39,11 +37,11 @@ public class Main extends PApplet {
      */
     public void draw() {
         deleteAll();
-        drawtable();
+        drawTable();
         drawRobot();
     }
 
-    private void drawtable() {
+    private void drawTable() {
         for (int i = 1; i < 12; i++) {
             line(leftMargin, i * upperMargin, leftMargin + tableLength, i * upperMargin);
             line(leftMargin * i, upperMargin, leftMargin * i, upperMargin + tableLength);
@@ -86,18 +84,19 @@ public class Main extends PApplet {
             }
         }
         drawRobotBody();
-        drawRobotText();
+        drawRobotLetter();
     }
 
-    private void drawRobotText() {
-        char letter = ' ';
-        if (robot.getMode() == Mode.RESTRICTED) {
-            letter = 'R';
-        } else if (robot.getMode() == Mode.TELEPORT) {
-            letter = 'T';
-        }
-
+    private void drawRobotLetter() {
+        char letter = getLetter();
         fill(0);
+        drawLetter(letter);
+        fill(255);
+    }
+
+    private void drawLetter(char letter) {
+        float directionDisplayDistance = 15;
+        float repositionMiddle = 3;
 
         if (robot.getDirection() == Direction.SOUTH) {
             text(
@@ -124,8 +123,16 @@ public class Main extends PApplet {
                     upperMargin + (celllength / 2) + (celllength * y + repositionMiddle)
             );
         }
+    }
 
-        fill(255);
+    private char getLetter() {
+        char letter = ' ';
+        if (robot.getMode() == Mode.RESTRICTED) {
+            letter = 'R';
+        } else if (robot.getMode() == Mode.TELEPORT) {
+            letter = 'T';
+        }
+        return letter;
     }
 
     private void drawRobotBody() {

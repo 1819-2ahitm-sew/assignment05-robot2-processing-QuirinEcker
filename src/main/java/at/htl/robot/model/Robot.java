@@ -27,17 +27,10 @@ public class Robot {
         return direction;
     }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
     public Mode getMode() {
         return mode;
     }
 
-    public void setMode(Mode mode) {
-        this.mode = mode;
-    }
     //endregion
 
     public void stepForward() {
